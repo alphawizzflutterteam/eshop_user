@@ -996,205 +996,181 @@ class StateOrder extends State<OrderDetail>
                     ],
                   ),
                 ),
-
-                /////
+                if (orderItem.status != CANCLED)
+                  OutlinedButton.icon(
+                    onPressed: () {
+                      openBottomSheet(context, orderItem.productId);
+                    },
+                    icon:
+                    Icon(Icons.rate_review_outlined, color: colors.primary),
+                    label: Text(
+                      getTranslated(context, "WRITE_REVIEW_LBL")!,
+                      style: TextStyle(color: colors.primary),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                          color: Theme
+                              .of(context)
+                              .colorScheme
+                              .btnColor),
+                    ),
+                  ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    if (orderItem.status == DELIVERD)
-                      OutlinedButton.icon(
-                        onPressed: () {
-                          openBottomSheet(context, orderItem.productId);
-                        },
-                        icon: Icon(Icons.rate_review_outlined,
-                            color: colors.primary),
-                        label: Text(
-                          getTranslated(context, "WRITE_REVIEW_LBL")!,
-                          style: TextStyle(color: colors.primary),
-                        ),
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(
-                              color: Theme.of(context).colorScheme.btnColor),
-                        ),
-                      ),
-
                     // if (!orderItem.listStatus!.contains(PROCESSED) &&
                     //     (!orderItem.listStatus!.contains(PLACED)) &&
                     //     (!orderItem.listStatus!.contains(SHIPED)) )
                     //     &&
                     //     orderItem.isCancle == "1" &&
                     //     orderItem.isAlrCancelled == "0")
-                    orderItem.status == CANCLED
-                        ? SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: OutlinedButton(
-                                  onPressed: _isReturnClick
-                                      ? () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return AlertDialog(
-                                                title: Text(
-                                                  getTranslated(context,
-                                                      'ARE_YOU_SURE?')!,
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .fontColor),
-                                                ),
-                                                content: Text(
-                                                  "Would you like to cancel this order?",
-                                                  style: TextStyle(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .fontColor),
-                                                ),
-                                                actions: [
-                                                  TextButton(
-                                                    child: Text(
-                                                      getTranslated(
-                                                          context, 'YES')!,
-                                                      style: TextStyle(
-                                                          color:
-                                                              colors.primary),
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                      setState(() {
-                                                        _isReturnClick = false;
-                                                        _isProgress = true;
-                                                      });
-                                                      cancelOrder(
-                                                          CANCLED,
-                                                          updateOrderItemApi,
-                                                          orderItem.id);
-                                                    },
-                                                  ),
-                                                  TextButton(
-                                                    child: Text(
-                                                      getTranslated(
-                                                          context, 'NO')!,
-                                                      style: TextStyle(
-                                                          color:
-                                                              colors.primary),
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                  )
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        }
-                                      : null,
-                                  child: Text(
-                                      getTranslated(context, 'ITEM_CANCEL')!),
-                                )),
-                          ),
-                    // else
-                    //   (orderItem.listStatus!.contains(DELIVERD) &&
-                    //           orderItem.isReturn == "1" &&
-                    //           orderItem.isAlrReturned == "0")
-                    //       ?
+                    if (orderItem.status != DELIVERD && orderItem.status != RETURNED && orderItem.status != CANCLED)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Align(
+                            alignment: Alignment.bottomRight,
+                            child:  OutlinedButton(
+                              onPressed: _isReturnClick
+                                  ? () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text(
+                                        getTranslated(
+                                            context, 'ARE_YOU_SURE?')!,
+                                        style: TextStyle(
+                                            color: Theme
+                                                .of(context)
+                                                .colorScheme
+                                                .fontColor),
+                                      ),
+                                      content: Text(
+                                        "Would you like to cancel this order?",
+                                        style: TextStyle(
+                                            color: Theme
+                                                .of(context)
+                                                .colorScheme
+                                                .fontColor),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          child: Text(
+                                            getTranslated(
+                                                context, 'YES')!,
+                                            style: TextStyle(
+                                                color: colors.primary),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            setState(() {
+                                              _isReturnClick = false;
+                                              _isProgress = true;
+                                            });
+                                            cancelOrder(
+                                                CANCLED,
+                                                updateOrderItemApi,
+                                                orderItem.id);
+                                          },
+                                        ),
+                                        TextButton(
+                                          child: Text(
+                                            getTranslated(context, 'NO')!,
+                                            style: TextStyle(
+                                                color: colors.primary),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                                  : null,
+                              child:
+                              Text(getTranslated(context, 'ITEM_CANCEL')!),
+                            )),
+                      ),
 
-                    // : Container(),
+                    // if (orderItem.status == DELIVERD)
+
+
                   ],
                 ),
-                orderItem.status == CANCLED
-                    ? SizedBox.shrink()
-                    : Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: OutlinedButton(
-                          onPressed: _isReturnClick
-                              ? () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text(
-                                          getTranslated(
-                                              context, 'ARE_YOU_SURE?')!,
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .fontColor),
-                                        ),
-                                        content: Text(
-                                          "Would you like to return this product?",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .fontColor),
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            child: Text(
-                                              getTranslated(context, 'YES')!,
-                                              style: TextStyle(
-                                                  color: colors.primary),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              setState(() {
-                                                _isReturnClick = false;
-                                                _isProgress = true;
-                                              });
-                                              cancelOrder(
-                                                  RETURNED,
-                                                  updateOrderItemApi,
-                                                  orderItem.id);
-                                            },
-                                          ),
-                                          TextButton(
-                                            child: Text(
-                                              getTranslated(context, 'NO')!,
-                                              style: TextStyle(
-                                                  color: colors.primary),
-                                            ),
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          )
-                                        ],
-                                      );
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    (orderItem.listStatus!.contains(DELIVERD) &&
+                        orderItem.isReturn == "1" &&
+                        orderItem.isAlrReturned == "0" && orderItem.status == DELIVERD)
+                        ?  Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: OutlinedButton(
+                        onPressed: _isReturnClick
+                            ? () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(
+                                  getTranslated(
+                                      context, 'ARE_YOU_SURE?')!,
+                                  style: TextStyle(
+                                      color: Theme
+                                          .of(context)
+                                          .colorScheme
+                                          .fontColor),
+                                ),
+                                content: Text(
+                                  "Would you like to return this product?",
+                                  style: TextStyle(
+                                      color: Theme
+                                          .of(context)
+                                          .colorScheme
+                                          .fontColor),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: Text(
+                                      getTranslated(context, 'YES')!,
+                                      style: TextStyle(
+                                          color: colors.primary),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      setState(() {
+                                        _isReturnClick = false;
+                                        _isProgress = true;
+                                      });
+                                      cancelOrder(
+                                          RETURNED,
+                                          updateOrderItemApi,
+                                          orderItem.id);
                                     },
-                                  );
-                                }
-                              : null,
-                          child: Text(getTranslated(context, 'ITEM_RETURN')!),
-                        ),
-                      )
-//                 SizedBox(height: 10,),
-//                 orderItem.status==SHIPED?
-//                 InkWell(
-//                   onTap: () {
-//                     print(widget.driverId.toString());
-//                     print(widget.driverId.runtimeType);
-// if(widget.driverId!=""){
-//
-//   Navigator.push(context, MaterialPageRoute(builder: (context) =>
-//       UserMapScreen(DriverId: widget.driverId.toString(),
-//           userlat: widget.userLat,
-//           userlang: widget.userLang),));
-// }
-//                   },
-//                   child: Container(
-//                     decoration: BoxDecoration(
-//
-//
-//                       border: Border.all(color: Colors.black12),
-//                       borderRadius: BorderRadius.circular(3),),
-//
-//                     height: 50,
-//                     width: MediaQuery.of(context).size.width,
-//                     child: Center(child: Text('${getTranslated(context, "TRACKTODRIVER")}',style: TextStyle(fontSize: 13,color: Colors.red),),),
-//                   ),
-//                 )
-//                     :SizedBox.shrink(),
+                                  ),
+                                  TextButton(
+                                    child: Text(
+                                      getTranslated(context, 'NO')!,
+                                      style: TextStyle(
+                                          color: colors.primary),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                        }
+                            : null,
+                        child: Text(getTranslated(context, 'ITEM_RETURN')!),
+                      ),
+                    ) : Container()
+                  ],)
               ],
             )));
   }
