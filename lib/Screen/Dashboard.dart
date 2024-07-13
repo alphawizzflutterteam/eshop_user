@@ -229,7 +229,8 @@ class _HomePageState extends State<Dashboard> with TickerProviderStateMixin {
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.lightWhite,
-        appBar: selectedIndex == 0 ? null : _getAppBar(),
+        // appBar: selectedIndex == 0 ? null : _getAppBar(),
+        appBar: _getAppBar(),
         body: bottomBarPages[selectedIndex],
         // body: PageView(
         //   controller: _pageController,
@@ -238,22 +239,24 @@ class _HomePageState extends State<Dashboard> with TickerProviderStateMixin {
         //       bottomBarPages.length, (index) => bottomBarPages[index]),
         // ),
         extendBody: true,
-        floatingActionButton: selectedIndex == 0
-            ? FloatingActionButton(
-                shape: StadiumBorder(),
-                backgroundColor: colors.primary,
-                child: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Search()),
-                  );
-                },
-              )
-            : null,
+
+        // Search Button
+        // floatingActionButton: selectedIndex == 0
+        //     ? FloatingActionButton(
+        //         shape: StadiumBorder(),
+        //         backgroundColor: colors.primary,
+        //         child: Icon(
+        //           Icons.search,
+        //           color: Colors.white,
+        //         ),
+        //         onPressed: () {
+        //           Navigator.push(
+        //             context,
+        //             MaterialPageRoute(builder: (context) => Search()),
+        //           );
+        //         },
+        //       )
+        //     : null,
         //fragments[_selBottom],
         bottomNavigationBar: _getBottomBar(),
       ),
@@ -273,40 +276,83 @@ class _HomePageState extends State<Dashboard> with TickerProviderStateMixin {
     // else if (selectedIndex == 4) title = getTranslated(context, 'PROFILE');
 
     return AppBar(
-      centerTitle: selectedIndex == 0 ? true : false,
-      title: selectedIndex != 0
-          ? Image.asset(
+      // centerTitle: selectedIndex == 0 ? true : false,
+      centerTitle: false,
+      title:
+      // selectedIndex != 0 ?
+      Image.asset(
               'assets/images/splash1.png',
               //height: 40,
               //   width: 200,
               height: 30,
-              // width: 45,
-            )
-          :
-          //     : Text(
-          //   title!,
-          //   style: TextStyle(
-          //       color: colors.whiteTemp, fontWeight: FontWeight.normal),
-          // ),
-          SizedBox(),
-      leading: selectedIndex == 0
-          ? InkWell(
-              child: Center(
-                  child: SvgPicture.asset(
-                imagePath + "search.svg",
-                height: 20,
-                color: colors.whiteTemp,
-              )),
-              onTap: () {
-                Navigator.push(
+            ),
+            // : SizedBox(),
+      // leading: selectedIndex == 0
+      //     ? InkWell(
+      //         child: Center(
+      //             child: SvgPicture.asset(
+      //           imagePath + "search.svg",
+      //           height: 20,
+      //           color: colors.whiteTemp,
+      //         )),
+      //         onTap: () {
+      //           Navigator.push(
+      //               context,
+      //               MaterialPageRoute(
+      //                 builder: (context) => Search(),
+      //               ));
+      //         },
+      //       )
+      //     : null,
+      actions: <Widget>[
+        selectedIndex == 0
+            ? Container(
+              height: 40,
+              width: MediaQuery.of(context).size.width - 100,
+              padding: EdgeInsets.only(right: 12),
+              child: TextFormField(
+                readOnly: true,
+                onTap: () {
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => Search(),
-                    ));
-              },
+                    ),
+                  );
+                },
+                enabled: true,
+                decoration: InputDecoration(
+                    hintText: 'Search',
+                    prefixIcon: Icon(Icons.search, color: colors.blackTemp,),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                      ),
+                    ),
+                    hintStyle: Theme.of(this.context).textTheme.subtitle2!.copyWith(
+                        color: Theme.of(context).colorScheme.fontColor,
+                        fontWeight: FontWeight.normal),
+                    filled: true,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
+                    fillColor: Colors.white
+                ),
+              ),
             )
-          : null,
-      actions: <Widget>[
+            : Container(),
+
         selectedIndex == 0
             ? Container()
             : IconButton(
@@ -322,7 +368,9 @@ class _HomePageState extends State<Dashboard> with TickerProviderStateMixin {
                         builder: (context) => Search(),
                       ));
                 }),
-        IconButton(
+        selectedIndex == 0
+            ? Container()
+        : IconButton(
           icon: SvgPicture.asset(
             imagePath + "desel_notification.svg",
             color: colors.whiteTemp,
@@ -341,7 +389,9 @@ class _HomePageState extends State<Dashboard> with TickerProviderStateMixin {
                     ));
           },
         ),
-        IconButton(
+        selectedIndex == 0
+            ? Container()
+        : IconButton(
           padding: EdgeInsets.all(0),
           icon: SvgPicture.asset(
             imagePath + "desel_fav.svg",

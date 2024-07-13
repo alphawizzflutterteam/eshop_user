@@ -126,82 +126,82 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(MediaQuery.of(context).size.width, 120),
-          child: Selector<HomeProvider, bool>(
-            builder: (context, data, child) {
-              return data
-                  ? masterTabLoading()
-                  : Container(
-                   color: colors.primary,
-                    width: MediaQuery.of(context).size.width,
-                    height: 100,
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: masterTabList
-                      .map(
-                        (masterData) => InkWell(
-                        onTap: () {
-                          setState(() {
-                            isSelectedTab =
-                                int.parse(masterData.id ?? '1');
-                            context
-                                .read<HomeProvider>()
-                                .setMasterCategory(isSelectedTab);
-                            isSelectedCategory = 0;
-                          });
-                          _refresh();
-                        },
-                        child: TabBar(
-                            iconUrl:
-                            '${imageUrl + (masterData.image ?? '')}',
-                            isSelected: isSelectedTab ==
-                                int.parse(masterData.id ?? '1'),
-                            title: masterData.name ?? '')),
-                  )
-                      .toList(),
-
-                  //  [
-                  //   InkWell(
-                  //       onTap: () {
-                  //         setState(() {
-                  //           isSelectedTab = 0;
-                  //         });
-                  //       },
-                  //       child: TabBar(
-                  //           iconUrl: 'assets/images/doc.png',
-                  //           isSelected: isSelectedTab == 0
-                  //           title: 'Tikmart')),
-                  //   InkWell(
-                  //       onTap: () {
-                  //         setState(() {
-                  //           isSelectedTab = 1;
-                  //         });
-                  //       },
-                  //       child: TabBar(
-                  //           iconUrl: 'assets/images/doc.png',
-                  //           isSelected: isSelectedTab == 1,
-                  //           title: 'Grocery')),
-                  //   InkWell(
-                  //       onTap: () {
-                  //         setState(() {
-                  //           isSelectedTab = 2;
-                  //         });
-                  //       },
-                  //       child: TabBar(
-                  //           iconUrl: 'assets/images/doc.png',
-                  //           isSelected: isSelectedTab == 2,
-                  //           title: 'Fashion')),
-                  // ],
-                ),
-              );
-            },
-            selector: (_, homeProvider) => homeProvider.masterTabLoading,
-          ),
-        ),
+        // appBar: PreferredSize(
+        //   preferredSize: Size(MediaQuery.of(context).size.width, 120),
+        //   child: Selector<HomeProvider, bool>(
+        //     builder: (context, data, child) {
+        //       return data
+        //           ? masterTabLoading()
+        //           : Container(
+        //            color: colors.primary,
+        //             width: MediaQuery.of(context).size.width,
+        //             height: 100,
+        //             padding:
+        //             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        //             child: Row(
+        //           crossAxisAlignment: CrossAxisAlignment.end,
+        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //           children: masterTabList
+        //               .map(
+        //                 (masterData) => InkWell(
+        //                 onTap: () {
+        //                   setState(() {
+        //                     isSelectedTab =
+        //                         int.parse(masterData.id ?? '1');
+        //                     context
+        //                         .read<HomeProvider>()
+        //                         .setMasterCategory(isSelectedTab);
+        //                     isSelectedCategory = 0;
+        //                   });
+        //                   _refresh();
+        //                 },
+        //                 child: TabBar(
+        //                     iconUrl:
+        //                     '${imageUrl + (masterData.image ?? '')}',
+        //                     isSelected: isSelectedTab ==
+        //                         int.parse(masterData.id ?? '1'),
+        //                     title: masterData.name ?? '')),
+        //           )
+        //               .toList(),
+        //
+        //           //  [
+        //           //   InkWell(
+        //           //       onTap: () {
+        //           //         setState(() {
+        //           //           isSelectedTab = 0;
+        //           //         });
+        //           //       },
+        //           //       child: TabBar(
+        //           //           iconUrl: 'assets/images/doc.png',
+        //           //           isSelected: isSelectedTab == 0
+        //           //           title: 'Tikmart')),
+        //           //   InkWell(
+        //           //       onTap: () {
+        //           //         setState(() {
+        //           //           isSelectedTab = 1;
+        //           //         });
+        //           //       },
+        //           //       child: TabBar(
+        //           //           iconUrl: 'assets/images/doc.png',
+        //           //           isSelected: isSelectedTab == 1,
+        //           //           title: 'Grocery')),
+        //           //   InkWell(
+        //           //       onTap: () {
+        //           //         setState(() {
+        //           //           isSelectedTab = 2;
+        //           //         });
+        //           //       },
+        //           //       child: TabBar(
+        //           //           iconUrl: 'assets/images/doc.png',
+        //           //           isSelected: isSelectedTab == 2,
+        //           //           title: 'Fashion')),
+        //           // ],
+        //         ),
+        //       );
+        //     },
+        //     selector: (_, homeProvider) => homeProvider.masterTabLoading,
+        //   ),
+        // ),
         body:
         // isSelectedTab == 0
         //     ?
@@ -767,7 +767,7 @@ class _HomePageState extends State<HomePage>
                 highlightColor: Theme.of(context).colorScheme.simmerHigh,
                 child: catLoading()))
             : Container(
-            decoration: BoxDecoration(color: colors.primary.withOpacity(0.2)
+            decoration: BoxDecoration(color: colors.primary.withOpacity(0.1)
               // gradient: LinearGradient(
               //   begin: Alignment.centerLeft,
               //   end: Alignment.topCenter,
