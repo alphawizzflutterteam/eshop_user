@@ -767,7 +767,7 @@ class _HomePageState extends State<HomePage>
                 highlightColor: Theme.of(context).colorScheme.simmerHigh,
                 child: catLoading()))
             : Container(
-            decoration: BoxDecoration(color: colors.primary.withOpacity(0.1)
+            decoration: BoxDecoration(color: colors.primary.withOpacity(0.05)
               // gradient: LinearGradient(
               //   begin: Alignment.centerLeft,
               //   end: Alignment.topCenter,
@@ -801,7 +801,7 @@ class _HomePageState extends State<HomePage>
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 40,
+                  height: 58,
                   child: ListView.separated(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
@@ -823,18 +823,17 @@ class _HomePageState extends State<HomePage>
                                       width: 4)),
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          height: 30,
+                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          // height: 30,
                           child: Row(
                             children: [
                               CachedNetworkImage(
                                   imageUrl:
-                                  "$imageUrl${brandList[index].image ?? ''}"),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text('${brandList[index].name}')
+                                  "$imageUrl${brandList[index].image ?? ''}", height: 54,),
+                              // SizedBox(
+                              //   width: 5,
+                              // ),
+                              // Text('${brandList[index].name}')
                             ],
                           ),
                         ),
